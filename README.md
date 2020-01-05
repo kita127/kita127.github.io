@@ -1,6 +1,10 @@
 # kita127.github.io
 my portfolio
 
-* 使用テンプレート
+## URL
 
-    https://startbootstrap.com/previews/freelancer/
+https://kita127.github.io/
+
+## 使用テンプレート
+
+https://startbootstrap.com/previews/freelancer/
