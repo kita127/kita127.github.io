@@ -1,5 +1,5 @@
 # kita127.github.io
-my portfolio
+my web site
 
 ## URL
 
