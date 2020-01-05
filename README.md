@@ -7,4 +7,4 @@ https://kita127.github.io/
 
 ## 使用テンプレート
 
-https://startbootstrap.com/previews/freelancer/
+https://startbootstrap.com/templates/simple-sidebar/
