@@ -50,10 +50,10 @@
 
       <div class="container-fluid">
 
-        <a name="home"></a>
+        <a id="home"></a>
         <h1 class="mt-4">kita127's Page</h1>
 
-        <a name="about"></a>
+        <a id="about"></a>
         <h1 class="mt-4">About</h1>
         <p class="icon">
           <img src="./image/icon.jpg" alt="アイコン">
@@ -62,7 +62,7 @@
         <p>職業 : 組み込みソフト屋さん</p>
         <p>好きな言語 : Haskell、Go</p>
 
-        <a name="myworks"></a>
+        <a id="myworks"></a>
         <h1 class="mt-4">My works</h1>
         <p>過去に作った作品</p>
 
@@ -80,17 +80,17 @@
         <p>スネークケース → キャメルケース, キャメルケース → スネークケースなどの相互変換が行える.</p>
         <p>キャメルケース推奨の Go 言語において誤ってスネークケースを使用してしまい悲しい思いをしたため作成.</p>
 
-        <a name="github"></a>
+        <a id="github"></a>
         <h1 class="mt-4">GitHub</h1>
         <a href="https://github.com/kita127">https://github.com/kita127</a>
         <p>作品は GitHub にまとめています.</p>
 
-        <a name="blog"></a>
+        <a id="blog"></a>
         <h1 class="mt-4">Blog</h1>
         <a href="https://kita127.hatenablog.com/">https://kita127.hatenablog.com/</a>
         <p>はてなブログに技術ブログを書いています.</p>
 
-        <a name="link"></a>
+        <a id="link"></a>
         <h1 class="mt-4">Link</h1>
         <p>twitter : @kita1271</p>
 
@@ -113,6 +113,21 @@
     });
   </script>
 
+  <!-- スムームスクロール -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(function(){
+    $('a[href^=#]').click(function(){
+        var speed = 500;
+        var href= $(this).attr("href");
+        var target = $(href == "#" || href == "" ? 'html' : href);
+        var position = target.offset().top;
+        $("html, body").animate({scrollTop:position}, speed, "swing");
+        return false;
+    });
+  });
+  </script>
+  <!-- スムームスクロール -->
 </body>
 
 </html>
