@@ -94,6 +94,8 @@
         <h1 class="mt-4">Link</h1>
         <p>twitter : @kita1271</p>
 
+        <p id="page-top"><a href="#">TOP</a></p>
+
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -125,6 +127,27 @@
         $("html, body").animate({scrollTop:position}, speed, "swing");
         return false;
     });
+  });
+
+  // 戻るボタン
+  $(function () {
+      var topBtn = $('#page-top');
+      topBtn.hide();
+      //スクロールが500に達したらボタン表示
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > 500) {
+              topBtn.fadeIn();
+          } else {
+              topBtn.fadeOut();
+          }
+      });
+      //スルスルっとスクロールでトップへもどる
+      topBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: 0
+          }, 500);
+          return false;
+      });
   });
   </script>
   <!-- スムームスクロール -->
