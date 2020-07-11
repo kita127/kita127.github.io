@@ -31,6 +31,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
+
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <a class="btn btn-primary" href="https://kita127.github.io">kita127's_Page</a>
 
@@ -56,7 +57,7 @@
               <a class="nav-link" href="#blog">Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#link">Link</a>
+              <p id="link-btn"><a class="nav-link" href="#">Link</a></p>
             </li>
           </ul>
         </div>
@@ -129,16 +130,6 @@
   <!-- スムームスクロール -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript">
-  $(function(){
-    $('a[href^=#]').click(function(){
-        var speed = 500;
-        var href= $(this).attr("href");
-        var target = $(href == "#" || href == "" ? 'html' : href);
-        var position = target.offset().top;
-        $("html, body").animate({scrollTop:position}, speed, "swing");
-        return false;
-    });
-  });
 
   // 戻るボタン
   $(function () {
@@ -156,6 +147,21 @@
       topBtn.click(function () {
           $('body,html').animate({
               scrollTop: 0
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#link-btn');
+      var e = document.getElementById('link')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
           }, 500);
           return false;
       });
