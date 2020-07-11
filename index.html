@@ -31,6 +31,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
+
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <a class="btn btn-primary" href="https://kita127.github.io">kita127's_Page</a>
 
@@ -44,19 +45,19 @@
               <a class="nav-link" href="#page-content-wrapper">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
+              <p id="about-btn"><a class="nav-link" href="#">About</a></p>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#myworks">My works</a>
+              <p id="myworks-btn"><a class="nav-link" href="#">My works</a></p>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#github">GitHub</a>
+              <p id="github-btn"><a class="nav-link" href="#">GitHub</a></p>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#blog">Blog</a>
+              <p id="blog-btn"><a class="nav-link" href="#">Blog</a></p>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#link">Link</a>
+              <p id="link-btn"><a class="nav-link" href="#">Link</a></p>
             </li>
           </ul>
         </div>
@@ -129,16 +130,6 @@
   <!-- スムームスクロール -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript">
-  $(function(){
-    $('a[href^=#]').click(function(){
-        var speed = 500;
-        var href= $(this).attr("href");
-        var target = $(href == "#" || href == "" ? 'html' : href);
-        var position = target.offset().top;
-        $("html, body").animate({scrollTop:position}, speed, "swing");
-        return false;
-    });
-  });
 
   // 戻るボタン
   $(function () {
@@ -161,6 +152,82 @@
       });
   });
   </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#link-btn');
+      var e = document.getElementById('link')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#blog-btn');
+      var e = document.getElementById('blog')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#github-btn');
+      var e = document.getElementById('github')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#myworks-btn');
+      var e = document.getElementById('myworks')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+      var sampBtn = $('#about-btn');
+      var e = document.getElementById('about')
+      var rect = e.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset;
+      sampBtn.click(function () {
+          $('body,html').animate({
+              scrollTop: top
+          }, 500);
+          return false;
+      });
+  });
+  </script>
+
   <!-- スムームスクロール -->
 </body>
 
