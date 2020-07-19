@@ -7,4 +7,4 @@ https://kita127.github.io/
 
 ## 使用テンプレート
 
-https://startbootstrap.com/templates/simple-sidebar/
+https://startbootstrap.com/themes/resume/
