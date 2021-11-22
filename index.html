@@ -67,6 +67,28 @@
                             <div class="subheading mb-3">Haskell 製のインタプリタ言語</div>
                             <p>字句解析, 構文解析系のライブラリを使用せず, 基本的には Haskell の標準ライブラリ(Prelude) だけを使用し作成した自作プログラミング言語. 元ネタは書籍「Go言語でつくるインタプリタ」</p>
                             <a href="https://github.com/kita127/haskey">https://github.com/kita127/haskey</a>
+                            <blockquote>
+                                <p>$ haskey<br>
+                                Hello! This is the Haskey programming language!<br>
+                                Feel free to type in commands<br>
+                                Usage: haskey --help<br>
+                                >> let a = 100;<br>
+                                >> let b = 200;<br>
+                                >> a + b;<br>
+                                300<br>
+                                >> if(a > 1000){ true; }else{ false; };<br>
+                                False<br>
+                                >> let add = fn(x, y) { x + y };<br>
+                                >> let sub = fn(x, y) { x - y };<br>
+                                >> let applyFunc = fn(a, b, func) { func(a, b) };<br>
+                                >> applyFunc(2, 2, add);<br>
+                                4<br>
+                                >> applyFunc(10, 2, sub);<br>
+                                8<br>
+                                >> "Hello" + " " + "World";<br>
+                                Hello World<br>
+                                </p>
+                            </blockquote>
                         </div>
                         <div class="flex-shrink-0"><span class="text-primary"></span></div>
                     </div>

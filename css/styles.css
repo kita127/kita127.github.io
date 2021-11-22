@@ -10138,3 +10138,20 @@ section.resume-section .resume-section-content {
     width: 80%;
     height: auto;
 }
+
+blockquote{
+    position:relative;
+    border-left:3px solid #DA8596;
+    padding-left:10px;
+}
+blockquote p{
+    position:relative;
+    padding-left:10px;
+}
+blockquote cite{
+    display: block;
+    font-size:0.8rem;
+    color:#F8C8B2;
+    text-align:right;
+}
+
