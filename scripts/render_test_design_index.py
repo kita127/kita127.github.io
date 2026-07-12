@@ -34,6 +34,31 @@ def extract_title(html_path: Path) -> str:
 
 
 def extract_summary(html_path: Path) -> str:
+    markdown_path = html_path.with_suffix(".md")
+    if markdown_path.exists():
+        markdown_text = markdown_path.read_text(encoding="utf-8")
+        lines: list[str] = []
+        for line in markdown_text.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("#"):
+                continue
+            if stripped.startswith("<!--"):
+                continue
+            cleaned = re.sub(r"[`*_~]", "", stripped)
+            cleaned = re.sub(r"\[(.*?)\]\([^)]*\)", r"\1", cleaned)
+            lines.append(cleaned)
+            if len(lines) >= 2:
+                break
+
+        if lines:
+            summary = " ".join(lines[:2])
+            summary = re.sub(r"\s+", " ", summary).strip()
+            if len(summary) > 120:
+                summary = summary[:117] + "..."
+            return summary
+
     html = html_path.read_text(encoding="utf-8")
     body_match = re.search(r"<body[^>]*>(.*?)</body>", html, re.IGNORECASE | re.DOTALL)
     if not body_match:
