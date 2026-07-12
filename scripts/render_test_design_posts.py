@@ -20,6 +20,10 @@ def color_for_token(token_type: tuple) -> str:
         return "#c084fc"
     if token_type in {Token.Name.Class, Token.Name.Function, Token.Name.Builtin, Token.Name.Namespace}:
         return "#7dd3fc"
+    if token_type in {Token.Name.Variable, Token.Name.Attribute}:
+        return "#f59e0b"
+    if token_type in {Token.Name.Other, Token.Name.Label, Token.Name.Exception}:
+        return "#38bdf8"
     if token_type in {Token.String, Token.String.Single, Token.String.Double, Token.String.Symbol}:
         return "#86efac"
     if token_type in {Token.Comment, Token.Comment.Single, Token.Comment.Multiline, Token.Comment.Preproc}:
