@@ -33,3 +33,13 @@ python3 scripts/render_test_design_posts.py
 - markdown: Markdown の構文を HTML に変換するために使用しています。
 - pygments: コードブロックのシンタックスハイライトを行うために使用しています。
 - css/article-posts.css: 記事ページの見た目を整えるためのスタイルシートです。
+
+## test_design の記事一覧生成
+
+生成済みの HTML 記事を [test_design/index.html](test_design/index.html) から一覧表示するには、次のコマンドを実行します。
+
+```bash
+python3 scripts/render_test_design_index.py
+```
+
+このコマンドは、test_design 配下にある HTML 記事を検索し、各記事へのリンクを test_design/index.html に自動挿入します。
