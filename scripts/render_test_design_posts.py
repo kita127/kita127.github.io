@@ -17,6 +17,26 @@ def render_inline(text: str) -> str:
     return text
 
 
+def render_code_block(code: str, language: str) -> str:
+    highlighted = escape(code)
+    normalized_language = language.strip().lower()
+
+    if normalized_language in {"php", "php7", "php8"}:
+        keyword_pattern = re.compile(
+            r"\b(abstract|and|array|as|break|callable|case|catch|class|clone|const|continue|declare|default|do|echo|else|elseif|empty|enddeclare|endfor|endforeach|endif|endswitch|endwhile|eval|exit|extends|final|finally|fn|for|foreach|function|global|goto|if|implements|include|include_once|instanceof|insteadof|interface|isset|list|match|namespace|new|or|print|private|protected|public|readonly|require|require_once|return|static|switch|throw|trait|try|unset|use|var|while|xor|yield|yield from)\b"
+        )
+        parts: list[str] = []
+        last_index = 0
+        for match in keyword_pattern.finditer(code):
+            parts.append(escape(code[last_index:match.start()]))
+            parts.append(f'<span class="token keyword">{escape(match.group(0))}</span>')
+            last_index = match.end()
+        parts.append(escape(code[last_index:]))
+        highlighted = "".join(parts)
+
+    return f'<pre><code class="language-{escape(normalized_language)}">{highlighted}</code></pre>'
+
+
 def render_markdown(markdown: str) -> str:
     lines = markdown.splitlines()
     blocks: list[str] = []
@@ -30,6 +50,11 @@ def render_markdown(markdown: str) -> str:
             i += 1
             continue
 
+        if stripped == "---":
+            blocks.append("<hr>")
+            i += 1
+            continue
+
         if stripped.startswith("```"):
             language = stripped[3:].strip()
             code_lines: list[str] = []
@@ -40,9 +65,7 @@ def render_markdown(markdown: str) -> str:
             if i < len(lines):
                 i += 1
             code_block = "\n".join(code_lines)
-            blocks.append(
-                f"<pre><code class=\"language-{escape(language)}\">{escape(code_block)}</code></pre>"
-            )
+            blocks.append(render_code_block(code_block, language))
             continue
 
         heading_match = re.match(r"^(#{1,6})\s+(.*)$", stripped)
@@ -116,6 +139,7 @@ def build_html(markdown: str, source_path: Path) -> str:
     code {{ font-family: ui-monospace, SFMono-Regular, monospace; background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 0.25rem; }}
     pre {{ background: #111827; color: #f9fafb; padding: 1rem; overflow-x: auto; border-radius: 0.5rem; }}
     pre code {{ background: transparent; padding: 0; color: inherit; }}
+    .token.keyword {{ color: #c084fc; }}
     a {{ color: #2563eb; }}
   </style>
 </head>

@@ -16,6 +16,7 @@
     code { font-family: ui-monospace, SFMono-Regular, monospace; background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 0.25rem; }
     pre { background: #111827; color: #f9fafb; padding: 1rem; overflow-x: auto; border-radius: 0.5rem; }
     pre code { background: transparent; padding: 0; color: inherit; }
+    .token.keyword { color: #c084fc; }
     a { color: #2563eb; }
   </style>
 </head>
@@ -32,15 +33,15 @@
 <p>DI は依存しているモノ(クラス、interface)を取得する際に、外部から依存を注入してもらうことにより、依存するモノを取得します。<br></p>
 <p>具体的にはコンストラクタ、メソッド、プロパティを経由し依存を外部から注入(Injection)してもらいます。</p>
 <pre><code class="language-php">// DI で管理される依存
-interface UserRepositoryInterface
+<span class="token keyword">interface</span> UserRepositoryInterface
 {
-    public function findById(int $id): User;
-    public function save(User $user): void;
+    <span class="token keyword">public</span> <span class="token keyword">function</span> findById(int $id): User;
+    <span class="token keyword">public</span> <span class="token keyword">function</span> save(User $user): void;
 }
 
-class UserController
+<span class="token keyword">class</span> UserController
 {
-    public function changeEmail(
+    <span class="token keyword">public</span> <span class="token keyword">function</span> changeEmail(
         // 依存しているモノをメソッドの引数に注入してもらう
         UserRepositoryInterface $userRepository,
         int $userId,
@@ -57,14 +58,14 @@ class UserController
 <p>多くは、依存管理用のライブラリが提供している依存取得メソッド(下記例では <code>resolve</code>)などを使用し、取得します。</p>
 <pre><code class="language-php">// こちらも同様に UserRepositoryInterface が定義されている。
 
-class UserController
+<span class="token keyword">class</span> UserController
 {
-    public function changeEmail(
+    <span class="token keyword">public</span> <span class="token keyword">function</span> changeEmail(
         int $userId,
         string $newEmail): void
     {
         // 依存管理ライブラリが提供する resolve 関数を使用し自分がほしい依存を取得する
-        $userRepository = resolve(UserRepositoryInterface::class);
+        $userRepository = resolve(UserRepositoryInterface::<span class="token keyword">class</span>);
         $user = $userRepository-&gt;findById($userId);
         $user-&gt;email = $newEmail;
         $userRepository-&gt;save($user);
@@ -122,7 +123,7 @@ class UserController
 <p>開発スピードを優先した場合、ドメイン層がインフラストラクチャ層に依存するレイヤードアーキテクチャを採用し、ORM でガリガリロジックを扱うアクティブレコードのほうが最適な場合もあります。</p>
 <p>この場合は思い切ってサービスロケーターを採用し、ORM やロジック内でもガリガリ依存を扱ったほうが正解かもしれません。</p>
 <p>しかし、この手法で開発したプログラムは長期の保守、拡張は難しく、それらを承知のうえで決断する必要があります。</p>
-<p>---</p>
+<hr>
 <h2>結論</h2>
 <p>今回は一般的にはアンチパターンと言われるサービスロケーターについて、純粋な気持ちで DI と比較し、有用なケースがないか検討しました。</p>
 <p>結論としては、自動テストやクリーンな設計を考慮した場合、一般的に言われるようにサービスロケーターはそれらとは相性が良くないため、極力避けるべきかと思います。</p>
