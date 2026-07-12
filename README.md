@@ -52,6 +52,8 @@ python3 scripts/render_test_design_index.py
 make all
 ```
 
+`make all` は、必要に応じて依存ライブラリをインストールしたうえで、Markdown から HTML を生成し、記事一覧も更新します。
+
 - `make all`: Markdown から HTML を生成し、記事一覧も更新します。
 - `make render`: Markdown から HTML を生成します。
 - `make index`: 記事一覧を更新します。
