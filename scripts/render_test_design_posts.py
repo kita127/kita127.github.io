@@ -94,7 +94,12 @@ def render_markdown(markdown_text: str) -> str:
         markdown_text,
         extensions=["fenced_code", "sane_lists"],
     )
-    return highlight_code_blocks(html)
+    html = highlight_code_blocks(html)
+
+    index_link = '<p><a href="../../index.html">テスト／設計研究所</a></p>'
+    if html.startswith("<h1"):
+        return index_link + html
+    return index_link + html
 
 
 def determine_title(markdown: str) -> str:
@@ -118,6 +123,9 @@ def build_html(markdown: str, source_path: Path) -> str:
     :root {{ color-scheme: light; }}
     body {{ font-family: \"Inter\", \"Segoe UI\", Roboto, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.8; max-width: 860px; margin: 0 auto; padding: 3rem 1.25rem 4rem; color: #0f172a; background: linear-gradient(180deg, #f8fafc 0%, #fefefe 100%); }}
     article {{ background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06); padding: 2.2rem 2.2rem 2.6rem; }}
+    article > p:first-of-type {{ margin-top: 0; }}
+    article a {{ color: #2563eb; text-decoration: none; }}
+    article a:hover {{ text-decoration: underline; }}
     h1, h2, h3, h4 {{ line-height: 1.3; margin-top: 2rem; color: #0f172a; }}
     h1 {{ font-size: 2rem; margin-top: 0; padding-bottom: 0.7rem; border-bottom: 2px solid #e2e8f0; }}
     h2 {{ font-size: 1.45rem; }}
