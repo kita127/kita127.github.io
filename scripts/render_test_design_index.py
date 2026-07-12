@@ -33,13 +33,36 @@ def extract_title(html_path: Path) -> str:
     return html_path.stem.replace("-", " ").title()
 
 
+def extract_summary(html_path: Path) -> str:
+    html = html_path.read_text(encoding="utf-8")
+    body_match = re.search(r"<body[^>]*>(.*?)</body>", html, re.IGNORECASE | re.DOTALL)
+    if not body_match:
+        return ""
+
+    body_html = body_match.group(1)
+    text = strip_tags(body_html)
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        return ""
+
+    sentences = re.split(r"(?<=[。.!?])\s+", text)
+    summary = " ".join(sentences[:2])
+    if len(summary) > 120:
+        summary = summary[:117] + "..."
+    return summary
+
+
 def build_link_section(html_files: list[Path]) -> str:
     items = []
     for html_path in html_files:
         relative_path = html_path.relative_to(TEST_DESIGN_ROOT).as_posix()
         href = "./" + relative_path
         title = escape(extract_title(html_path))
-        items.append(f'    <li><a href="{href}">{title}</a></li>')
+        summary = escape(extract_summary(html_path))
+        if summary:
+            items.append(f'    <li><a href="{href}">{title}</a><div class="post-summary">{summary}</div></li>')
+        else:
+            items.append(f'    <li><a href="{href}">{title}</a></li>')
 
     return f"""{START_MARKER}
 <section>
