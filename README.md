@@ -43,3 +43,15 @@ python3 scripts/render_test_design_index.py
 ```
 
 このコマンドは、test_design 配下にある HTML 記事を検索し、各記事へのリンクを test_design/index.html に自動挿入します。
+
+## Makefile を使った一括実行
+
+2つの生成処理をまとめて実行したい場合は、リポジトリのルートで次のコマンドを実行します。
+
+```bash
+make all
+```
+
+- `make all`: Markdown から HTML を生成し、記事一覧も更新します。
+- `make render`: Markdown から HTML を生成します。
+- `make index`: 記事一覧を更新します。
