@@ -93,6 +93,18 @@ a:hover {
   overflow-x: auto;
 }
 
-.kw { color: #c084fc; }
-.dt { color: #7dd3fc; }
-.st { color: #86efac; }
+.codehilite {
+  margin: 1rem 0;
+}
+
+.codehilite pre {
+  padding: 1rem 1.1rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+}
+
+.codehilite .x { color: #f8fafc; }
+.codehilite .k, .codehilite .kd, .codehilite .kn, .codehilite .kp, .codehilite .kr { color: #c084fc; }
+.codehilite .n, .codehilite .na, .codehilite .nb, .codehilite .nc, .codehilite .nd, .codehilite .ni, .codehilite .nl, .codehilite .nn { color: #f8fafc; }
+.codehilite .s, .codehilite .sa, .codehilite .sb, .codehilite .sc, .codehilite .sd, .codehilite .se, .codehilite .sh, .codehilite .si, .codehilite .sx, .codehilite .sr, .codehilite .ss { color: #86efac; }
+.codehilite .c, .codehilite .cm, .codehilite .c1, .codehilite .cs { color: #94a3b8; }
