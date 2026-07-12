@@ -16,19 +16,30 @@ TEST_DESIGN_ROOT = REPO_ROOT / "test_design"
 
 
 def color_for_token(token_type: tuple) -> str:
-    if token_type in {Token.Keyword, Token.Keyword.Declaration, Token.Keyword.Type}:
+    # PHP でも見やすい配色を基本にしつつ、他言語でも同じトークンベースで拡張しやすいようにしている。
+    token_groups = {
+        "keyword": {Token.Keyword, Token.Keyword.Declaration, Token.Keyword.Type},
+        "name": {Token.Name.Class, Token.Name.Function, Token.Name.Builtin, Token.Name.Namespace},
+        "variable": {Token.Name.Variable, Token.Name.Attribute},
+        "type": {Token.Name.Other, Token.Name.Label, Token.Name.Exception},
+        "string": {Token.String, Token.String.Single, Token.String.Double, Token.String.Symbol},
+        "comment": {Token.Comment, Token.Comment.Single, Token.Comment.Multiline, Token.Comment.Preproc},
+        "punctuation": {Token.Punctuation, Token.Operator},
+    }
+
+    if token_type in token_groups["keyword"]:
         return "#c084fc"
-    if token_type in {Token.Name.Class, Token.Name.Function, Token.Name.Builtin, Token.Name.Namespace}:
+    if token_type in token_groups["name"]:
         return "#7dd3fc"
-    if token_type in {Token.Name.Variable, Token.Name.Attribute}:
+    if token_type in token_groups["variable"]:
         return "#f59e0b"
-    if token_type in {Token.Name.Other, Token.Name.Label, Token.Name.Exception}:
+    if token_type in token_groups["type"]:
         return "#38bdf8"
-    if token_type in {Token.String, Token.String.Single, Token.String.Double, Token.String.Symbol}:
+    if token_type in token_groups["string"]:
         return "#86efac"
-    if token_type in {Token.Comment, Token.Comment.Single, Token.Comment.Multiline, Token.Comment.Preproc}:
+    if token_type in token_groups["comment"]:
         return "#94a3b8"
-    if token_type in {Token.Punctuation, Token.Operator}:
+    if token_type in token_groups["punctuation"]:
         return "#f8fafc"
     return "#f8fafc"
 
