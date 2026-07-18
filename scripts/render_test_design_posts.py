@@ -92,7 +92,7 @@ def highlight_code_blocks(html: str) -> str:
 def render_markdown(markdown_text: str) -> str:
     html = markdown.markdown(
         markdown_text,
-        extensions=["fenced_code", "sane_lists"],
+        extensions=["fenced_code", "sane_lists", "tables"],
     )
     html = highlight_code_blocks(html)
 
@@ -132,6 +132,9 @@ def build_html(markdown: str, source_path: Path) -> str:
     h3 {{ font-size: 1.2rem; }}
     p {{ margin: 1rem 0; color: #0f172a; }}
     ul {{ padding-left: 1.3rem; color: #475569; }}
+    table {{ width: 100%; border-collapse: collapse; margin: 1.2rem 0; border: 1px solid #e2e8f0; background: #ffffff; }}
+    th, td {{ border: 1px solid #e2e8f0; padding: 0.7rem 0.85rem; text-align: left; vertical-align: top; }}
+    th {{ background: #f8fafc; font-weight: 600; }}
     code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #f1f5f9; color: #0f172a; padding: 0.12rem 0.38rem; border-radius: 0.3rem; font-size: 0.95em; }}
     pre {{ background: #111827; color: #f8fafc; padding: 1rem 1.1rem; overflow-x: auto; border-radius: 0.75rem; border: 1px solid #334155; }}
     pre code {{ background: transparent; padding: 0; color: inherit; }}
