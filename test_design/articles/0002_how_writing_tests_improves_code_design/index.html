@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>テストのために書いているんじゃあない！設計のために書いているんだ！</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: "Inter", "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.8; max-width: 860px; margin: 0 auto; padding: 3rem 1.25rem 4rem; color: #0f172a; background: linear-gradient(180deg, #f8fafc 0%, #fefefe 100%); }
+    article { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06); padding: 2.2rem 2.2rem 2.6rem; }
+    article > p:first-of-type { margin-top: 0; }
+    article a { color: #2563eb; text-decoration: none; }
+    article a:hover { text-decoration: underline; }
+    h1, h2, h3, h4 { line-height: 1.3; margin-top: 2rem; color: #0f172a; }
+    h1 { font-size: 2rem; margin-top: 0; padding-bottom: 0.7rem; border-bottom: 2px solid #e2e8f0; }
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.2rem; }
+    p { margin: 1rem 0; color: #0f172a; }
+    ul { padding-left: 1.3rem; color: #475569; }
+    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; border: 1px solid #e2e8f0; background: #ffffff; }
+    th, td { border: 1px solid #e2e8f0; padding: 0.7rem 0.85rem; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #f1f5f9; color: #0f172a; padding: 0.12rem 0.38rem; border-radius: 0.3rem; font-size: 0.95em; }
+    pre { background: #111827; color: #f8fafc; padding: 1rem 1.1rem; overflow-x: auto; border-radius: 0.75rem; border: 1px solid #334155; }
+    pre code { background: transparent; padding: 0; color: inherit; }
+    .codehilite { margin: 1rem 0; }
+    .codehilite pre { padding: 1rem 1.1rem; }
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+  </style>
+</head>
+<body>
+  <article>
+    <p><a href="../../index.html">テスト／設計研究所</a></p><h1>テストのために書いているんじゃあない！設計のために書いているんだ！</h1>
+<h2>私は単体テスト野郎</h2>
+<p>私は単体テスト野郎です。実装時にはほとんどの場合においてテストファーストを意識してプログラミングします。
+Kent Beck の「テスト駆動開発」を読んでから数年間、このスタンスで仕事をしています。
+単体テストを書くことには、それにかかるコストを上回るメリットがたくさんあると、実務の中で実感してきました。</p>
+<p>現在の職場は単体テストに対するリテラシーは比較的高く、全員が、実装時にはある程度テストを追加します。
+そんな職場の中でも私のテストに対するこだわりは異質で、おそらく同僚は私の偏執を理解できないと思います。
+それはテストを書く動機が私と同僚とでは異なっており、異質の原因はその動機の違いだと私は考えています。</p>
+<p>同僚と話をする中で他の皆がテストを書く一番の動機はリグレッション（デグレード）に対する防衛のようです。
+もちろん、私もリグレッション対策が単体テストを書く一つの動機ではあります。
+単体テストを積み重ねることで、機能追加や拡張時のリグレッションを防いでくれることは明白な単体テストの利点です。</p>
+<p>しかし、私はこの利点と同じかそれ以上に単体テストによる別の利点があると実感しています。</p>
+<p><strong><em>テストを書くと圧倒的に設計が良くなる！！！！</em></strong></p>
+<p>これが私が信じる単体テストにおける利点のもう一つの側面です。</p>
+<p>これを同僚との話の中で話題に挙げるのですが、なかなか伝わりません。
+かと言ってこの利点をしっかり説こうと思っても、一言で表せないためなかなか職場の雑談では伝えきれません。
+いつも「テストを書くと設計も良くなりますよね！」とだけ言って、「何を言っているんだ、こいつは？」という間をいただきます。</p>
+<p>今回はこのいつも一言で言い表せない想いを、このブログに綴っていこうと思います。伝われぇ！！</p>
+<h2>単体テストによりなぜ設計が良くなるのか？</h2>
+<h3>前提: テストファースト</h3>
+<p>それでは想いを綴っていきます。ですが、このテストによって設計が良くなる理論にはひとつ大前提があります。
+それは必ず「テストファースト」で実装を進めることです。</p>
+<p>これはよくよく考えると当然で、後でテストを書くということは、すでにプロダクトコードが完成しているため、テストが設計の改善に影響しにくいからです。
+一応、テストを書いてからリファクタするという選択肢もありますが、ここがまたテストファーストで進めた場合と状況が異なってきます。
+なぜなら後書きテストで実装した場合は、プロダクトコードもテストコード自体もテストファーストで取り組んだ場合よりも変更が難しくなる傾向があります。
+なぜならこの後説明する、テストファーストによる設計向上の恩恵を受けにくく、結果としてリファクタしにくい作りになりやすいからです。</p>
+<p>以上により、今回語る「単体テストにより設計が良くなる」理論はプロダクトコードの実装よりも先にテストコードを書くことを前提に説明します。</p>
+<h2>なんで良くなるの？ それはテストを書きやすくしようとするから！</h2>
+<p>これからあなたは開発しているシステムのある機能を実装していきます。テストファーストで進めるため、まずはプロダクトコードの前にそのコードをテストするためのコードから書きます。</p>
+<p>当然複雑なテストは書きたくないため、テストのための準備（Arrange）も実行（Act）も検証（Assert）もシンプルでわかりやすく書こうとします。
+すると当然ながら、テスト対象のクラスはテストをしやすいように作ろうという意識になります。</p>
+<p>テストをしやすいクラスは設計の良いクラスになる傾向があります。以上が良くなる理由です。</p>
+<p>と言っても「なぜ良くなるの？」を説明していないため、ここをさらに深掘りしていきます。</p>
+<h3>理由その1: 疎結合なクラスになる</h3>
+<p>テストをしやすくしようと思った場合、なるべくテスト対象クラスは独立して機能するようにします。
+テストするためにテスト対象クラス以外のクラスやモジュールがたくさん必要となると、当然テストするための準備（Arrange）が大変になります。
+なるべくテスト対象クラスが必要とする依存を減らすことで、自然に疎結合なクラスになります。
+ご存知の通り、クラス設計は高凝集、疎結合が良いとされています。テストをシンプルに書こうとした結果、自然と結合度の低いクラスになります。</p>
+<h3>理由その2: 入出力を簡潔にする</h3>
+<p>テストの大まかな流れは、テスト対象のクラスやメソッドに入力を与え、出力結果が期待値と一致することを確認します。
+テストを簡潔にしようとした場合、この「入力値の組み立て」、「テスト対象への入力の与え方」、「期待値の組み立てやすさ」が重要になります。
+つまり、以下のようなテストは書きたくないはずです。</p>
+<ul>
+<li>テスト対象に与える入力値の生成が大変</li>
+<li>たくさんのデータが必要</li>
+<li>たくさんのデータの複雑な連携が必要</li>
+<li>テスト対象の準備が大変</li>
+<li>テストするために必要となるDB設定など実行前の準備が複雑</li>
+<li>テスト対象をテストするための設定値などが複雑</li>
+<li>期待値の算出が容易ではない</li>
+<li>テスト対象に以下のような副作用を含むため、実行タイミングにより出力結果が変化する<ul>
+<li>グローバル変数</li>
+<li>日付</li>
+<li>乱数</li>
+<li>I/O</li>
+</ul>
+</li>
+</ul>
+<p>その結果、テスト対象クラスは、複雑な事前設定がなく、かつ、入力によって一意に出力が決まる設計にしようとします。
+このような純粋な処理は副作用やグローバルな状態を持たないため、処理の把握がしやすく、可読性・保守性に優れます。</p>
+<p>オブジェクト指向で設計した場合は、オブジェクトの状態なども計算時の入力の一部となるため、
+メソッドの引数のみで出力結果が一意に決まるわけではないですが、それでも副作用のない純粋に近い設計のほうがテストも書きやすいため、
+オブジェクトの状態をイミュータブルにしたり、なるべく関連する状態の数は減らそうとしたりなど、やはり良いプラクティスで実装する意識が働きます。</p>
+<p>このように、テストを事前に書くことにより、テスト対象クラス、メソッドの入出力のフローを簡潔にし、かつ、自然に純粋な設計をするようになります。</p>
+<h3>理由その3: 副作用を分離する</h3>
+<p>理由その3「入出力を簡潔にする」でも触れていますが、テストを書きやすくしようとした場合、副作用を分離しようとする意識が働きます。
+その前にプログラミングにおける副作用について私の理解を説明しておきます。</p>
+<p>処理が自分の内側や引数で与えられた入力以外に外部から影響を受けたり、あるいは戻り値以外に外部に影響を与えることを副作用と呼びます。
+具体的には以下が副作用の一例です。</p>
+<ul>
+<li>グローバル変数を参照・更新する</li>
+<li>ファイルを読み書きする</li>
+<li>データベースを読み書きする</li>
+<li>外部と通信する</li>
+<li>乱数や日付などの実行時タイミングごとに変化する値の参照</li>
+<li>引数で渡されたオブジェクトの状態を変更する</li>
+</ul>
+<p>これらの副作用をテスト対象に持ち込むと、テストが著しくしづらくなり、場合によってはテストできなくなります。</p>
+<p>とはいえ、当然ながら外部とまったく通信しなかったり、I/Oを扱えなかったりすると実用的なアプリケーションにはならないため、これらを完全になくすことはできません。
+大切なのはロジックと副作用を分離することです。</p>
+<p>テスト対象は主に、複雑なドメインやビジネス上の関心を扱うロジックのはずです。
+これらは副作用と切り離して、テストを容易にすべきです。</p>
+<p>テストファーストで書いた場合、テストでは扱いづらい副作用を切り離すため、自然と純粋な処理と副作用を分離した設計に寄っていきます。</p>
+<h3>まとめ</h3>
+<p>これまでに述べた理由により、事前にテストを書くことにより自然と設計自体が良い方向に向かうようになります。
+設計を改善し、リグレッションを防止できるという効果があるため、私は積極的にテストファーストを用います。</p>
+<h2>おまけ: テストを信頼できるドキュメントにしよう！</h2>
+<p>事前にテストを書くと、自然に可読性の高いテストを書く意識が働きます。</p>
+<p>これを推し進めると、1つ1つのテストが簡潔な仕様書になります。
+私はこれを突き詰めていきたいと考えています。</p>
+<p>私は設計書、ドキュメントの類いが基本的に嫌いです。なぜ嫌いかというと、よく嘘をつくからです。
+はじめはプログラムと整合が取れていても、時がたつにつれて、不具合修正や新機能をドキュメントに織り込むことを忘れ、プログラムと乖離していきます。
+結果、ドキュメントを信用できなくなり、しまいには読まれず、放置されるようになります。</p>
+<p>しかし、テストは嘘をつきません。もちろん、テスト自体に誤りがあることはあります。
+それでも、テストと実装の前提が変わったときには、結果の変化として気づくきっかけを得られます。
+結果的にテストは信頼できるドキュメントになり得ます。</p>
+<p>アプリケーションの寿命が延びた昨今では、自動テストを書くことが比較的当たり前になってきたかと思います。
+テストを書く習慣ができ、テストにより設計が洗練されるようになってきたならば、
+次に目指すべきはテストのドキュメント化ではないかと私は思います。</p>
+<h2>言い訳</h2>
+<p>「テストファーストで書けば良い設計になる」と断定的に書いていますが、もちろん後からテストを書いても良い設計はできますし、
+テストファーストで書いたからと言って、必ずしも良い設計になるとは限りません。
+例えば、テストのためだけに本来は不要な I/F を用意したり、不要な抽象化をしたりする場合もあります。</p>
+<p>なので、テストファーストと言っても、主役はプロダクトコードであり、テストコードはサポートという意識がないと、
+テストのための設計という本末転倒な結果にもなり得ます。過ぎたるは猶及ばざるが如しですね。</p>
+<p>結局のところ、本当に良い設計ができるかは設計者本人の設計スキルに依るでしょう。</p>
+<p>記事本文ではテストファーストは良い設計になると強めに書きましたが、テストファーストは設計を良くする示唆を与えてくれるくらいで、
+テストファーストにしただけでは劇的に設計は良くはならないでしょう。身も蓋もない事を言うと良い設計をしようと思ったら、結局、設計の勉強も必要ということですね....
+ですが今回は想いを伝えることが主目的でしたので、割と強めに記事を書きました。</p>
+<hr />
+<p>更新: 2026/08/01</p>
+  </article>
+</body>
+</html>
